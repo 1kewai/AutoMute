@@ -79,16 +79,9 @@ async def h(ctx):
     await ctx.send("リアクション操作でミュート・ミュート解除が行えます")
 
 @client.command()
-async def upd():
+async def upd(ctx):
     await ctx.send("2021/10/28 Update")
     await ctx.send("・ボイチャにいちいち参加させなくてもミュート可能になりました。")
     await ctx.send("・リアクションを使ってボタンで操作できるようになりました。")
-
-@client.command()
-async def unmuteme(ctx):
-    try:
-        await ctx.author.edit(mute=False)
-    except Exception as e:
-        pass
 
 client.run(auth.token)
