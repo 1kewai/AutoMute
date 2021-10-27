@@ -64,7 +64,7 @@ async def on_reaction_add(reaction, user):
         await reaction.message.channel.send("エラーが発生した可能性があります、もし失敗していたらもう一度お試しください。")
     #リアクションを何度も実行できるように、リアクションを削除する必要がある
     try:
-        reaction_idss=await reaction.users().flatten()
+        reaction_ids=await reaction.users().flatten()
         for users in reaction_ids:
             if users.bot != 1:
                 await reaction.remove(users)
