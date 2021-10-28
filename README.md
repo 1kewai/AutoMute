@@ -12,7 +12,5 @@ import discord[voice] ffmoeg
 auth.pyファイルを作り、auth="(Discordのトークン)"を書き込む。
 
 ## 使い方
-.joinでボイチャに参加
-.muteで全員ミュート
-.unmuteでミュート解除
-.quitで退出
+.showで操作画面を表示
+ボタンを押して操作
