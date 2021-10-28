@@ -1,5 +1,4 @@
 #必要なライブラリのimport
-
 import discord
 from discord.ext import commands
 import asyncio
@@ -27,7 +26,7 @@ async def on_ready():
 @client.command()
 async def show(ctx):
     try:
-        msg=await ctx.send("下のボタンでミュート、ミュート解除ができます！")
+        msg = await ctx.send("下のボタンでミュート、ミュート解除ができます！")
         await msg.add_reaction("🎤")
         await msg.add_reaction("❌")
     except Exception as e:
@@ -43,28 +42,28 @@ async def on_reaction_add(reaction, user):
         return
     try:
         #リアクションを付けたユーザーを探す
-        reaction_ids=await reaction.users().flatten()
-        user=None
+        reaction_ids = await reaction.users().flatten()
+        user = None
         for users in reaction_ids:
             if users.bot != 1:
-                user=users
+                user = users
         #ミュート解除
-        vc_ids=user.voice.channel.voice_states.keys()
+        vc_ids = user.voice.channel.voice_states.keys()
         if reaction.emoji == "🎤":
             for id in vc_ids:
-                m=reaction.message.guild.get_member(id)
-                await m.edit(mute=False)
+                m = reaction.message.guild.get_member(id)
+                await m.edit(mute = False)
         #ミュート
-        if reaction.emoji =="❌":
+        if reaction.emoji == "❌":
             for id in vc_ids:
-                m=reaction.message.guild.get_member(id)
-                await m.edit(mute=True)
+                m = reaction.message.guild.get_member(id)
+                await m.edit(mute = True)
     except Exception as e:
         print("#エラー:"+str(e))
         await reaction.message.channel.send("エラーが発生した可能性があります、もし失敗していたらもう一度お試しください。")
     #リアクションを何度も実行できるように、リアクションを削除する必要がある
     try:
-        reaction_ids=await reaction.users().flatten()
+        reaction_ids = await reaction.users().flatten()
         for users in reaction_ids:
             if users.bot != 1:
                 await reaction.remove(users)
