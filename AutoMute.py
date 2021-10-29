@@ -11,9 +11,9 @@ import auth
 import datetime
 
 #プレフィックスを"."としてボットとして動作させる
-intents = discord.Intents.default()
-intents.members = True
-client = commands.Bot(command_prefix='.',intents=intents)
+client_intents = discord.Intents.default()
+client_intents.members = True
+client = commands.Bot(command_prefix='.',intents=client_intents)
 voice_client = None
 
 #ログを表示する関数
@@ -27,6 +27,7 @@ log("Starting AutoMute for AmongUS...")
 async def on_ready():
     log('Logged in as +' + client.user.name + " : "+client.user.id)
 
+#.showに対応して操作画面を表示する
 @client.command()
 async def show(ctx):
     try:
@@ -40,9 +41,9 @@ async def show(ctx):
 #リアクションで操作を行えるようにする
 @client.event
 async def on_reaction_add(reaction, user):
-    if user.bot:
+    if user.bot:#botの場合は反応しない
         return
-    if reaction.message.author.bot != 1:
+    if reaction.message.author.bot != 1:#botが書いたメッセージ以外にリアクションが付いた場合は反応しない
         return
     try:
         #リアクションを付けたユーザーを探す
@@ -87,4 +88,5 @@ async def upd(ctx):
     await ctx.send("・ボイチャにいちいち参加させなくてもミュート可能になりました。")
     await ctx.send("・リアクションを使ってボタンで操作できるようになりました。")
 
+#Bot実行
 client.run(auth.token)
