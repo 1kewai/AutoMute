@@ -8,6 +8,7 @@ import ffmpeg
 import threading
 import time
 import auth
+import datetime
 
 #プレフィックスを"."としてボットとして動作させる
 intents = discord.Intents.default()
@@ -15,13 +16,16 @@ intents.members = True
 client = commands.Bot(command_prefix='.',intents=intents)
 voice_client = None
 
+#ログを表示する関数
+def log(text : str):
+    print(datetime.datetime.now()+" : "+text)
+
+log("Starting AutoMute for AmongUS...")
+
 #起動時にログイン名とidを表示
 @client.event
 async def on_ready():
-    print('Logged in as')
-    print(client.user.name)
-    print(client.user.id)
-    print('------')
+    log('Logged in as +' + client.user.name + " : "+client.user.id)
 
 @client.command()
 async def show(ctx):
@@ -30,7 +34,7 @@ async def show(ctx):
         await msg.add_reaction("🎤")
         await msg.add_reaction("❌")
     except Exception as e:
-        print(e)
+        log("Error : " + str(e))
         await ctx.send("エラーが発生しました。もう一度お試しください。")
 
 #リアクションで操作を行えるようにする
@@ -59,7 +63,7 @@ async def on_reaction_add(reaction, user):
                 m = reaction.message.guild.get_member(id)
                 await m.edit(mute = True)
     except Exception as e:
-        print("#エラー:"+str(e))
+        log("Error : "+str(e))
         await reaction.message.channel.send("エラーが発生した可能性があります、もし失敗していたらもう一度お試しください。")
     #リアクションを何度も実行できるように、リアクションを削除する必要がある
     try:
@@ -68,7 +72,7 @@ async def on_reaction_add(reaction, user):
             if users.bot != 1:
                 await reaction.remove(users)
     except Exception as e:
-        print("エラー:"+str(e))
+        log("Error : "+str(e))
 
 
 @client.command()
