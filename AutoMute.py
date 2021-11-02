@@ -13,19 +13,19 @@ import datetime
 #プレフィックスを"."としてボットとして動作させる
 client_intents = discord.Intents.default()
 client_intents.members = True
-client = commands.Bot(command_prefix='.',intents=client_intents)
+client = commands.Bot(command_prefix = '.', intents = client_intents)
 voice_client = None
 
 #ログを表示する関数
 def log(text : str):
-    print(datetime.datetime.now()+" : "+text)
+    print(str(datetime.datetime.now())+" : "+text)
 
 log("Starting AutoMute for AmongUS...")
 
 #起動時にログイン名とidを表示
 @client.event
 async def on_ready():
-    log('Logged in as +' + client.user.name + " : "+client.user.id)
+    log('Logged in as ' + client.user.name + " : " +str(client.user.id))
 
 #.showに対応して操作画面を表示する
 @client.command()
