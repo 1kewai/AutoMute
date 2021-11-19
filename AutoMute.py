@@ -4,7 +4,6 @@ from discord.ext import commands
 import asyncio
 import os
 import subprocess
-import ffmpeg
 import threading
 import time
 import auth
