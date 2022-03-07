@@ -1,5 +1,5 @@
 docker container rm -f AutoMute
-docker container run -it -d --name AutoMute --restart=always ubuntu_server bash
+docker container run -it -d --name AutoMute --restart=always --cpus=0.25 --memory=0.25g ubuntu_server bash
 docker exec AutoMute apt update
 docker exec AutoMute apt install python3-pip ffmpeg wget -y
 docker exec AutoMute pip3 install discord
